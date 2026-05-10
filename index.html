@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guitar Tuner & Metronome</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <header class="header">
+        <h1>Guitar Tuner & Metronome</h1>
+        <p class="subtitle">
+          PC 向けブラウザツール · マイクはチューナーにのみ使用し録音しません
+        </p>
+      </header>
+
+      <main class="grid">
+        <section class="panel tuner-panel" aria-labelledby="tuner-heading">
+          <h2 id="tuner-heading">チューナー</h2>
+
+          <div class="tuner-controls">
+            <label class="field">
+              <span class="label">基準 A4 (Hz)</span>
+              <input
+                id="refPitch"
+                type="number"
+                min="420"
+                max="460"
+                step="0.5"
+                value="440"
+              />
+            </label>
+            <button type="button" id="micToggle" class="btn btn-primary">
+              マイクを開始
+            </button>
+          </div>
+
+          <p id="micStatus" class="status" role="status"></p>
+
+          <div class="string-row" role="group" aria-label="対象の弦"></div>
+
+          <div class="meter-wrap" aria-hidden="true">
+            <div class="meter-bg">
+              <div class="meter-center"></div>
+              <div id="needle" class="needle"></div>
+            </div>
+          </div>
+
+          <dl class="readout">
+            <div>
+              <dt>検出周波数</dt>
+              <dd id="freqDisplay">—</dd>
+            </div>
+            <div>
+              <dt>ノート</dt>
+              <dd id="noteDisplay">—</dd>
+            </div>
+            <div>
+              <dt>目標との差（セント）</dt>
+              <dd id="centsDisplay">—</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section class="panel metro-panel" aria-labelledby="metro-heading">
+          <h2 id="metro-heading">メトロノーム</h2>
+
+          <div class="metro-controls">
+            <label class="field">
+              <span class="label">BPM</span>
+              <input id="bpm" type="number" min="40" max="240" value="120" />
+            </label>
+            <label class="field">
+              <span class="label">拍子</span>
+              <select id="timeSig">
+                <option value="4">4/4</option>
+                <option value="3">3/4</option>
+                <option value="6">6/8</option>
+              </select>
+            </label>
+            <label class="checkbox">
+              <input type="checkbox" id="accent" checked />
+              <span>1拍目を強調</span>
+            </label>
+          </div>
+
+          <div class="metro-actions">
+            <button type="button" id="metroToggle" class="btn btn-primary">
+              開始
+            </button>
+            <button type="button" id="tapTempo" class="btn btn-secondary">
+              タップテンポ
+            </button>
+          </div>
+
+          <div id="beatLamp" class="beat-lamp" aria-live="polite">
+            <span id="beatDot" class="beat-dot"></span>
+            <span id="beatLabel" class="beat-label"></span>
+          </div>
+
+          <p class="hints">
+            ショートカット:
+            <kbd>Space</kbd> 開始/停止 · <kbd>↑</kbd><kbd>↓</kbd> BPM ±1 ·
+            <kbd>←</kbd><kbd>→</kbd> BPM ±5
+          </p>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <small
+          >音量は OS / ブラウザの設定に依存します。イヤホン利用時は耳の疲労にご注意ください。</small
+        >
+      </footer>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
